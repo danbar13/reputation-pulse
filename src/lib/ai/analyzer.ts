@@ -412,13 +412,24 @@ Return a STRICT JSON object matching this schema:
 }
 `;
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-      config: {
-        responseMimeType: 'application/json',
-      },
-    });
+    let response;
+    try {
+      response = await ai.models.generateContent({
+        model: 'gemini-3.5-flash',
+        contents: prompt,
+        config: {
+          responseMimeType: 'application/json',
+        },
+      });
+    } catch {
+      response = await ai.models.generateContent({
+        model: 'gemini-3.8-flash',
+        contents: prompt,
+        config: {
+          responseMimeType: 'application/json',
+        },
+      });
+    }
 
     const text = response.text;
     if (!text) {
@@ -442,7 +453,7 @@ Return a STRICT JSON object matching this schema:
       actionableRecommendations: Array.isArray(parsed.actionableRecommendations) ? parsed.actionableRecommendations : [],
       generatedAt: new Date().toISOString(),
       isLiveAi: true,
-      modelUsed: 'Google Gemini 2.5 Flash',
+      modelUsed: 'Google Gemini 3.5 Flash',
     };
   } catch (err: any) {
     console.warn('[Gemini AI] Live generation failed, utilizing resilient fallback synthesis:', err?.message || err);
