@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0B0F14;
+  --bg-secondary: #131922;
+  --bg-card: #0F141C;
+  --border-color: #1F2937;
+  --text-primary: #F3F4F6;
+  --text-secondary: #9CA3AF;
+  --accent-gold: #F59E0B;
+  --accent-emerald: #10B981;
+}
+
+html.light {
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --border-color: #E2E8F0;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --accent-gold: #D97706;
+  --accent-emerald: #059669;
+}
+
+/* Accessibility Scaling */
+html.text-scale-normal {
+  font-size: 16px;
+}
+
+html.text-scale-large {
+  font-size: 18.4px; /* 115% */
+}
+
+html.text-scale-xlarge {
+  font-size: 20.8px; /* 130% */
+}
+
+/* High Contrast Mode */
+html.high-contrast {
+  --border-color: #4B5563;
+}
+html.light.high-contrast {
+  --border-color: #64748B;
+  --text-primary: #000000;
+  --text-secondary: #1E293B;
+}
+html.dark.high-contrast {
+  --border-color: #9CA3AF;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E5E7EB;
+}
+html.high-contrast .border-card {
+  border-width: 2px !important;
+}
+
+/* Highlight Interactive Controls */
+html.highlight-controls button,
+html.highlight-controls a,
+html.highlight-controls input,
+html.highlight-controls select,
+html.highlight-controls textarea {
+  outline: 2px solid #F59E0B !important;
+  outline-offset: 2px !important;
+}
+
+/* Reduce Motion */
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 4px;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+
+/* Glow effects */
+.gold-glow {
+  box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.2);
+}
+.emerald-glow {
+  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.2);
+}
