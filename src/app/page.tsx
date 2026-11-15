@@ -209,31 +209,54 @@ export default function Home() {
     setIsScanning(true);
 
     try {
-      // Concurrently extract from all verified sources
-      const extractionPromises = verifiedSources.map((s) =>
-        extractSourceData(s, businessName, { location: businessLocation })
-      );
-      const extractedResults = await Promise.all(extractionPromises);
+      let newSnapshot: ScanSnapshot;
+
+      // Priority: Execute server-side live extraction API (with access to SERPAPI and live scrapers)
+      try {
+        const res = await fetch('/api/extract', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            businessName,
+            location: businessLocation,
+            website: businessWebsite,
+            category,
+            sources: verifiedSources,
+          }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          newSnapshot = data.snapshot;
+        } else {
+          throw new Error(`Server returned ${res.status}`);
+        }
+      } catch (serverErr) {
+        console.warn('Falling back to local extraction:', serverErr);
+        // Graceful fallback to client-side extraction
+        const extractionPromises = verifiedSources.map((s) =>
+          extractSourceData(s, businessName, { location: businessLocation })
+        );
+        const extractedResults = await Promise.all(extractionPromises);
+        const { simpleAverage, weightedScore, totalReviews, enrichedSources } =
+          calculateAggregateScores(extractedResults);
+
+        newSnapshot = {
+          id: `snap_${Date.now()}`,
+          businessName,
+          businessLocation,
+          businessWebsite,
+          category,
+          timestamp: new Date().toISOString(),
+          overallWeightedScore: weightedScore,
+          simpleAverageScore: simpleAverage,
+          totalReviews,
+          sources: enrichedSources,
+        };
+      }
 
       setScanStep('normalizing');
       await new Promise((res) => setTimeout(res, 350));
-
-      // Calculate aggregate unified scores
-      const { simpleAverage, weightedScore, totalReviews, enrichedSources } =
-        calculateAggregateScores(extractedResults);
-
-      const newSnapshot: ScanSnapshot = {
-        id: `snap_${Date.now()}`,
-        businessName,
-        businessLocation,
-        businessWebsite,
-        category,
-        timestamp: new Date().toISOString(),
-        overallWeightedScore: weightedScore,
-        simpleAverageScore: simpleAverage,
-        totalReviews,
-        sources: enrichedSources,
-      };
 
       // Persist snapshot to local history
       const updatedBusiness = saveSnapshot(newSnapshot);
@@ -241,8 +264,8 @@ export default function Home() {
       setCurrentSnapshot(newSnapshot);
       setScanStep('completed');
 
-      // Synthesize AI Qualitative Review Analysis
-      runAiAnalysis(businessName, category, weightedScore, enrichedSources, newSnapshot);
+      // Synthesize AI Qualitative Review Analysis with live data
+      runAiAnalysis(businessName, category, newSnapshot.overallWeightedScore, newSnapshot.sources, newSnapshot);
     } catch (e) {
       console.error('Extraction error:', e);
       setScanStep('error');
@@ -269,28 +292,51 @@ export default function Home() {
         confidence: 95,
       }));
 
-      const extractionPromises = sourcesToRun.map((s) =>
-        extractSourceData(s, currentSnapshot.businessName, {
-          location: currentSnapshot.businessLocation,
-        })
-      );
-      const extractedResults = await Promise.all(extractionPromises);
+      let newSnapshot: ScanSnapshot;
+      try {
+        const res = await fetch('/api/extract', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            businessName: currentSnapshot.businessName,
+            location: currentSnapshot.businessLocation,
+            website: currentSnapshot.businessWebsite,
+            category: currentSnapshot.category,
+            sources: sourcesToRun,
+          }),
+        });
 
-      const { simpleAverage, weightedScore, totalReviews, enrichedSources } =
-        calculateAggregateScores(extractedResults);
+        if (res.ok) {
+          const data = await res.json();
+          newSnapshot = data.snapshot;
+        } else {
+          throw new Error(`Server returned ${res.status}`);
+        }
+      } catch (serverErr) {
+        console.warn('Falling back to local extraction:', serverErr);
+        const extractionPromises = sourcesToRun.map((s) =>
+          extractSourceData(s, currentSnapshot.businessName, {
+            location: currentSnapshot.businessLocation,
+          })
+        );
+        const extractedResults = await Promise.all(extractionPromises);
 
-      const newSnapshot: ScanSnapshot = {
-        id: `snap_${Date.now()}`,
-        businessName: currentSnapshot.businessName,
-        businessLocation: currentSnapshot.businessLocation,
-        businessWebsite: currentSnapshot.businessWebsite,
-        category: currentSnapshot.category,
-        timestamp: new Date().toISOString(),
-        overallWeightedScore: weightedScore,
-        simpleAverageScore: simpleAverage,
-        totalReviews,
-        sources: enrichedSources,
-      };
+        const { simpleAverage, weightedScore, totalReviews, enrichedSources } =
+          calculateAggregateScores(extractedResults);
+
+        newSnapshot = {
+          id: `snap_${Date.now()}`,
+          businessName: currentSnapshot.businessName,
+          businessLocation: currentSnapshot.businessLocation,
+          businessWebsite: currentSnapshot.businessWebsite,
+          category: currentSnapshot.category,
+          timestamp: new Date().toISOString(),
+          overallWeightedScore: weightedScore,
+          simpleAverageScore: simpleAverage,
+          totalReviews,
+          sources: enrichedSources,
+        };
+      }
 
       const updated = saveSnapshot(newSnapshot);
       setHistoryData(updated);
@@ -300,8 +346,8 @@ export default function Home() {
       runAiAnalysis(
         newSnapshot.businessName,
         newSnapshot.category,
-        weightedScore,
-        enrichedSources,
+        newSnapshot.overallWeightedScore,
+        newSnapshot.sources,
         newSnapshot
       );
     } catch (e) {
