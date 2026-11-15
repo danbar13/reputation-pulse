@@ -206,7 +206,7 @@ export async function extractSourceData(
   }
 
   // 2. Check for live SerpApi
-  if (allowLive && isSerpApiConfigured() && source.platformId !== 'google') {
+  if (allowLive && isSerpApiConfigured() && (source.platformId !== 'google' || !isGooglePlacesConfigured())) {
     try {
       const liveSerp = await fetchLiveSerpApiData(
         source.platformId,
