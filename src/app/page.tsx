@@ -356,21 +356,21 @@ export default function Home() {
               isScanning={isScanning}
             />
 
-            {/* Quick Export / Utility Bar */}
-            <div className="flex items-center justify-between py-3 px-4 mb-6 rounded-xl bg-obsidian-850 dark:bg-obsidian-850 light:bg-white border border-slate-800 dark:border-slate-800 light:border-slate-200 text-xs">
-              <div className="flex items-center gap-2 text-slate-300 dark:text-slate-300 light:text-slate-700">
-                <Shield className="w-4 h-4 text-emerald-400 shrink-0" />
+            {/* Quick Export / Utility Bar - Centered on Mobile */}
+            <div className="flex flex-col sm:flex-row items-center justify-between py-3 px-4 mb-6 rounded-xl bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-slate-800 shadow-sm text-xs text-center sm:text-start gap-3">
+              <div className="flex items-center justify-center sm:justify-start gap-2 text-slate-700 dark:text-slate-300">
+                <Shield className="w-4 h-4 text-emerald-500 shrink-0" />
                 <span>
                   {t.exportBar.normalizedNotice.includes('{channels}')
                     ? t.exportBar.normalizedNotice.replace('{channels}', String(currentSnapshot.sources.length))
                     : `${t.exportBar.normalizedNotice} (${currentSnapshot.sources.length})`}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-center gap-2 w-full sm:w-auto">
                 <button
                   type="button"
                   onClick={handleExportJSON}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-obsidian-800 dark:bg-obsidian-800 light:bg-slate-100 hover:text-white dark:hover:text-white light:hover:text-slate-900 border border-slate-700 dark:border-slate-700 light:border-slate-300 text-slate-300 dark:text-slate-300 light:text-slate-700 transition-colors shrink-0"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-obsidian-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold transition-colors shrink-0 shadow-sm"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>{t.exportBar.btnExport}</span>
@@ -409,17 +409,17 @@ export default function Home() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 py-8 bg-obsidian-950 dark:bg-obsidian-950 light:bg-white text-xs text-slate-500 text-center transition-colors">
+      {/* Footer - Centered on Mobile */}
+      <footer className="border-t border-slate-200 dark:border-slate-800/80 py-8 bg-white dark:bg-obsidian-950 text-xs text-slate-600 dark:text-slate-400 text-center transition-colors">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-white dark:text-white light:text-slate-900">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <span className="font-bold text-slate-900 dark:text-white">
               {t.brand.name}
             </span>
             <span>—</span>
             <span>{t.brand.tagline}</span>
           </div>
-          <div className="flex items-center gap-4 text-slate-400 dark:text-slate-400 light:text-slate-600">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-slate-500 dark:text-slate-400">
             <span>{t.footer.scaleTag}</span>
             <span>•</span>
             <span>{t.footer.weightedTag}</span>

@@ -52,7 +52,7 @@ export function AccessibilityWidget() {
   }, [isOpen]);
 
   return (
-    <div className="fixed bottom-6 end-6 z-50">
+    <div className="fixed bottom-4 end-4 sm:bottom-6 sm:end-6 z-50">
       {/* Floating Action Button */}
       <button
         ref={triggerRef}
@@ -61,9 +61,9 @@ export function AccessibilityWidget() {
         aria-label={t.a11y.title}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className="group relative flex items-center justify-center w-13 h-13 p-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-obsidian-950 font-semibold shadow-xl hover:shadow-amber-500/30 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-amber-500/50"
+        className="group relative flex items-center justify-center w-11 h-11 sm:w-13 sm:h-13 p-2.5 sm:p-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-obsidian-950 font-semibold shadow-xl hover:shadow-amber-500/30 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-amber-500/50"
       >
-        <Eye className="w-6 h-6 transition-transform group-hover:scale-110" />
+        <Eye className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:scale-110" />
         <span className="sr-only">{t.a11y.title}</span>
         {/* Subtle pulsing indicator ring */}
         <span className="absolute -inset-1 rounded-full border border-amber-400/40 animate-ping opacity-25 pointer-events-none" />
@@ -76,7 +76,7 @@ export function AccessibilityWidget() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="a11y-title"
-          className="absolute bottom-16 end-0 w-84 sm:w-96 rounded-2xl bg-obsidian-850 dark:bg-obsidian-850 light:bg-white border border-slate-700/80 dark:border-slate-700/80 light:border-slate-200 shadow-2xl p-5 text-slate-100 dark:text-slate-100 light:text-slate-900 transition-all duration-200"
+          className="absolute bottom-14 end-0 w-[calc(100vw-2rem)] sm:w-96 max-w-sm rounded-2xl bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700/80 shadow-2xl p-5 text-slate-900 dark:text-slate-100 transition-all duration-200"
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-3 border-b border-slate-700/50 dark:border-slate-700/50 light:border-slate-200">

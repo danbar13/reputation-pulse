@@ -94,43 +94,43 @@ export function getScoreBadge(score: number): {
     return {
       label: 'Exceptional',
       grade: 'A+',
-      colorClass: 'text-emerald-400',
-      bgClass: 'bg-emerald-950/40 text-emerald-300',
-      borderClass: 'border-emerald-500/30',
+      colorClass: 'text-emerald-600 dark:text-emerald-400',
+      bgClass: 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300',
+      borderClass: 'border-emerald-300 dark:border-emerald-500/30',
     };
   }
   if (score >= 82) {
     return {
       label: 'Strong & Resilient',
       grade: 'A',
-      colorClass: 'text-emerald-400',
-      bgClass: 'bg-emerald-900/30 text-emerald-300',
-      borderClass: 'border-emerald-500/20',
+      colorClass: 'text-emerald-600 dark:text-emerald-400',
+      bgClass: 'bg-emerald-50 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
+      borderClass: 'border-emerald-200 dark:border-emerald-500/25',
     };
   }
   if (score >= 75) {
     return {
       label: 'Healthy / Moderate',
       grade: 'B+',
-      colorClass: 'text-amber-400',
-      bgClass: 'bg-amber-950/40 text-amber-300',
-      borderClass: 'border-amber-500/30',
+      colorClass: 'text-amber-600 dark:text-amber-400',
+      bgClass: 'bg-amber-50 text-amber-900 dark:bg-amber-950/50 dark:text-amber-300',
+      borderClass: 'border-amber-300 dark:border-amber-500/30',
     };
   }
   if (score >= 65) {
     return {
       label: 'Mixed Feedback',
       grade: 'C',
-      colorClass: 'text-amber-500',
-      bgClass: 'bg-amber-900/30 text-amber-300',
-      borderClass: 'border-amber-500/20',
+      colorClass: 'text-amber-600 dark:text-amber-500',
+      bgClass: 'bg-amber-50 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
+      borderClass: 'border-amber-200 dark:border-amber-500/25',
     };
   }
   return {
     label: 'Reputation Vulnerability',
     grade: 'D',
-    colorClass: 'text-rose-400',
-    bgClass: 'bg-rose-950/40 text-rose-300',
-    borderClass: 'border-rose-500/30',
+    colorClass: 'text-rose-600 dark:text-rose-400',
+    bgClass: 'bg-rose-50 text-rose-800 dark:bg-rose-950/50 dark:text-rose-300',
+    borderClass: 'border-rose-300 dark:border-rose-500/30',
   };
 }

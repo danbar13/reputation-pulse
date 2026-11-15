@@ -41,10 +41,10 @@ export function AiInsightsSection({
 
   const sentimentColor =
     analysis.overallSentiment === 'Positive'
-      ? 'text-emerald-400 bg-emerald-950/40 border-emerald-500/30'
+      ? 'text-emerald-800 bg-emerald-50 border-emerald-300 dark:text-emerald-400 dark:bg-emerald-950/50 dark:border-emerald-500/30'
       : analysis.overallSentiment === 'Mixed'
-      ? 'text-amber-400 bg-amber-950/40 border-amber-500/30'
-      : 'text-rose-400 bg-rose-950/40 border-rose-500/30';
+      ? 'text-amber-900 bg-amber-50 border-amber-300 dark:text-amber-400 dark:bg-amber-950/50 dark:border-amber-500/30'
+      : 'text-rose-800 bg-rose-50 border-rose-300 dark:text-rose-400 dark:bg-rose-950/50 dark:border-rose-500/30';
 
   // Extract or calculate segmented sentiment breakdown
   const sentimentBreakdown = analysis.sentimentBreakdown || {
@@ -90,54 +90,55 @@ export function AiInsightsSection({
 
   return (
     <div className="w-full max-w-7xl mx-auto mb-10">
-      <div className="rounded-2xl bg-obsidian-850 dark:bg-obsidian-850 light:bg-white border border-slate-700/80 dark:border-slate-700/80 light:border-slate-200 shadow-2xl p-6 sm:p-8 overflow-hidden relative">
+      <div className="rounded-2xl bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700/80 shadow-xl p-5 sm:p-8 overflow-hidden relative">
         {/* Decorative backdrop glow */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800 dark:border-slate-800 light:border-slate-200 relative z-10">
-          <div>
-            <div className="flex items-center gap-2 mb-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider">
+        {/* Section Header - Centered on Mobile */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800 relative z-10 text-center md:text-start">
+          <div className="flex flex-col items-center md:items-start">
+            <div className="flex items-center justify-center md:justify-start gap-2 mb-2 flex-wrap">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5" />
                 {t.ai.badge}
               </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-obsidian-900 dark:bg-obsidian-900 light:bg-slate-100 text-slate-300 dark:text-slate-300 light:text-slate-700 border border-slate-700 dark:border-slate-700 light:border-slate-300 text-xs font-mono">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-obsidian-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-xs font-mono font-medium">
                 {t.ai.modelPrefix} {analysis.modelUsed}
               </span>
               {analysis.isLiveAi && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-500/30 text-[10px] font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   {t.ai.liveAiBadge}
                 </span>
               )}
             </div>
 
-            <h2 className="text-xl sm:text-2xl font-bold text-white dark:text-white light:text-slate-900 tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
               {t.ai.title}
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 dark:text-slate-400 light:text-slate-600 mt-1 max-w-3xl">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
               {t.ai.subtitle}
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* Action Buttons - Centered on Mobile */}
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-2.5 w-full md:w-auto">
             <button
               type="button"
               onClick={handleCopyActionPlan}
-              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-obsidian-900 dark:bg-obsidian-900 light:bg-slate-100 hover:bg-slate-800 dark:hover:bg-slate-800 light:hover:bg-slate-200 border border-slate-700 dark:border-slate-700 light:border-slate-300 text-slate-200 dark:text-slate-200 light:text-slate-800 text-xs font-medium transition-all"
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-obsidian-900 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition-all shadow-sm"
             >
               {copied ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-400 font-bold">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <span className="text-emerald-700 dark:text-emerald-400 font-bold">
                     {language === 'he' ? 'הועתק!' : 'Copied!'}
                   </span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5 text-slate-400" />
+                  <Copy className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                   <span>{language === 'he' ? 'העתק תוכנית פעולה' : 'Copy Action Plan'}</span>
                 </>
               )}
@@ -158,50 +159,50 @@ export function AiInsightsSection({
         </div>
 
         {/* Executive Summary & Segmented Horizontal Sentiment Bar Card */}
-        <div className="my-6 p-5 sm:p-6 rounded-xl bg-obsidian-900/90 dark:bg-obsidian-900/90 light:bg-slate-50 border-s-4 border-s-amber-500 border border-slate-800 dark:border-slate-800 light:border-slate-200 relative">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+        <div className="my-6 p-5 sm:p-6 rounded-xl bg-slate-50 dark:bg-obsidian-900/90 border-s-4 border-s-amber-500 border border-slate-200 dark:border-slate-800 relative">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 text-center sm:text-start">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center justify-center sm:justify-start gap-1.5">
               <Quote className="w-3.5 h-3.5" />
               {t.ai.diagnosisTitle}
             </span>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center sm:justify-end gap-2 flex-wrap">
               <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold border ${sentimentColor}`}>
                 {t.ai.sentiment}: {analysis.overallSentiment}
               </span>
-              <span className="text-xs font-mono font-bold text-slate-300 dark:text-slate-300 light:text-slate-700">
+              <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
                 {t.ai.sentimentIndex}: {analysis.sentimentScore}/100
               </span>
             </div>
           </div>
 
-          <p className="text-sm sm:text-base text-slate-200 dark:text-slate-200 light:text-slate-800 leading-relaxed font-normal mb-4">
+          <p className="text-sm sm:text-base text-slate-800 dark:text-slate-200 leading-relaxed font-normal mb-4 text-start">
             {analysis.executiveSummary}
           </p>
 
           {/* Segmented Horizontal Sentiment Bar */}
-          <div className="pt-3 border-t border-slate-800/60 dark:border-slate-800/60 light:border-slate-200">
+          <div className="pt-3 border-t border-slate-200 dark:border-slate-800/60">
             <div className="flex items-center justify-between text-xs mb-1.5 font-semibold">
-              <span className="text-emerald-400 flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-emerald-500" />
                 {sentimentBreakdown.positive}% {t.sources.positive}
               </span>
-              <span className="text-slate-400 flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-slate-500" />
+              <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-500" />
                 {sentimentBreakdown.neutral}% {t.sources.neutral}
               </span>
-              <span className="text-rose-400 flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-rose-400" />
+              <span className="text-rose-600 dark:text-rose-400 flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-rose-500" />
                 {sentimentBreakdown.critical}% {t.sources.critical}
               </span>
             </div>
-            <div className="flex h-2.5 w-full rounded-full overflow-hidden bg-slate-800 dark:bg-slate-800 light:bg-slate-200">
+            <div className="flex h-2.5 w-full rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800">
               <div
                 className="bg-emerald-500 transition-all duration-500"
                 style={{ width: `${sentimentBreakdown.positive}%` }}
                 title={`${sentimentBreakdown.positive}% Positive`}
               />
               <div
-                className="bg-slate-500 transition-all duration-500"
+                className="bg-slate-400 dark:bg-slate-500 transition-all duration-500"
                 style={{ width: `${sentimentBreakdown.neutral}%` }}
                 title={`${sentimentBreakdown.neutral}% Neutral`}
               />
@@ -214,8 +215,8 @@ export function AiInsightsSection({
           </div>
         </div>
 
-        {/* Filter Navigation Tabs */}
-        <div className="flex items-center gap-2 mb-6 border-b border-slate-800 dark:border-slate-800 light:border-slate-200 pb-3 overflow-x-auto">
+        {/* Filter Navigation Tabs - Centered on Mobile */}
+        <div className="flex items-center justify-center sm:justify-start gap-2 mb-6 border-b border-slate-200 dark:border-slate-800 pb-3 overflow-x-auto flex-wrap sm:flex-nowrap">
           {[
             { id: 'all', label: t.ai.tabAll },
             { id: 'actions', label: `${t.ai.tabActions} (${analysis.actionableRecommendations.length})` },
@@ -229,7 +230,7 @@ export function AiInsightsSection({
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                 activeTab === tab.id
                   ? 'bg-amber-500 text-obsidian-950 shadow-sm'
-                  : 'bg-obsidian-900 dark:bg-obsidian-900 light:bg-slate-100 text-slate-400 dark:text-slate-400 light:text-slate-600 hover:text-white'
+                  : 'bg-slate-100 hover:bg-slate-200 dark:bg-obsidian-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800'
               }`}
             >
               {tab.label}
@@ -240,50 +241,48 @@ export function AiInsightsSection({
         {/* 1. Actionable Recommendations (Priority Operational Moves) */}
         {(activeTab === 'all' || activeTab === 'actions') && (
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Lightbulb className="w-4 h-4 text-amber-400" />
-                <h3 className="text-base font-bold text-white dark:text-white light:text-slate-900">
-                  {t.ai.actionPlanTitle}
-                </h3>
-              </div>
+            <div className="flex items-center justify-center sm:justify-start gap-2 mb-4">
+              <Lightbulb className="w-4 h-4 text-amber-500" />
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                {t.ai.actionPlanTitle}
+              </h3>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {analysis.actionableRecommendations.map((rec, idx) => {
                 const priorityBadge =
                   rec.priority === 'Immediate'
-                    ? 'bg-rose-950/40 text-rose-300 border-rose-500/30'
+                    ? 'bg-rose-50 text-rose-800 border-rose-300 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-500/30'
                     : rec.priority === 'Short-Term'
-                    ? 'bg-amber-950/40 text-amber-300 border-amber-500/30'
-                    : 'bg-blue-950/40 text-blue-300 border-blue-500/30';
+                    ? 'bg-amber-50 text-amber-900 border-amber-300 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-500/30'
+                    : 'bg-blue-50 text-blue-800 border-blue-300 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-500/30';
 
                 return (
                   <div
                     key={idx}
-                    className="flex flex-col justify-between p-5 rounded-xl bg-obsidian-900/70 dark:bg-obsidian-900/70 light:bg-slate-50 border border-slate-800 dark:border-slate-800 light:border-slate-200 shadow-md hover:border-slate-700 transition-all"
+                    className="flex flex-col justify-between p-5 rounded-xl bg-slate-50 dark:bg-obsidian-900/70 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-3">
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${priorityBadge}`}>
                           {rec.priority}
                         </span>
-                        <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-400 light:text-slate-600 flex items-center gap-1">
-                          <Building className="w-3 h-3" />
+                        <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                          <Building className="w-3 h-3 text-slate-400" />
                           {rec.department}
                         </span>
                       </div>
 
-                      <h4 className="font-semibold text-sm text-white dark:text-white light:text-slate-900 mb-2">
+                      <h4 className="font-semibold text-sm text-slate-900 dark:text-white mb-2 leading-snug">
                         {rec.action}
                       </h4>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-800/80 dark:border-slate-800/80 light:border-slate-200">
-                      <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-400 mb-0.5">
+                    <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800/80">
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 mb-0.5">
                         {t.ai.expectedImpact}
                       </div>
-                      <p className="text-xs text-slate-300 dark:text-slate-300 light:text-slate-600">
+                      <p className="text-xs text-slate-700 dark:text-slate-300 font-medium">
                         {rec.expectedImpact}
                       </p>
                     </div>
@@ -300,9 +299,9 @@ export function AiInsightsSection({
             {/* Left Column: Points to Preserve (נקודות לשימור) */}
             {(activeTab === 'all' || activeTab === 'strengths') && (
               <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <Award className="w-4 h-4 text-emerald-400" />
-                  <h3 className="text-base font-bold text-white dark:text-white light:text-slate-900">
+                <div className="flex items-center justify-center sm:justify-start gap-2 mb-3">
+                  <Award className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
                     {t.ai.preserveTitle}
                   </h3>
                 </div>
@@ -311,38 +310,38 @@ export function AiInsightsSection({
                   {analysis.keyStrengths.map((item, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl bg-obsidian-900/60 dark:bg-obsidian-900/60 light:bg-slate-50 border border-emerald-500/25 shadow-sm hover:border-emerald-500/40 transition-colors"
+                      className="p-4 rounded-xl bg-slate-50 dark:bg-obsidian-900/60 border border-emerald-300 dark:border-emerald-500/25 shadow-sm hover:border-emerald-400 dark:hover:border-emerald-500/40 transition-colors"
                     >
                       <div className="flex items-start justify-between gap-2 mb-1.5">
                         <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                          <span className="font-bold text-sm text-emerald-300">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                          <span className="font-bold text-sm text-emerald-800 dark:text-emerald-300">
                             {item.title}
                           </span>
                         </div>
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-950/50 text-emerald-400 border border-emerald-500/20 shrink-0">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-500/20 shrink-0">
                           {item.category}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-300 dark:text-slate-300 light:text-slate-600 mb-2.5">
+                      <p className="text-xs text-slate-700 dark:text-slate-300 mb-2.5 font-normal">
                         {item.description}
                       </p>
                       {item.quote && (
-                        <p className="text-[11px] text-slate-400 dark:text-slate-400 light:text-slate-500 italic ps-2.5 border-s-2 border-emerald-500/50 mb-2.5">
+                        <p className="text-[11px] text-slate-600 dark:text-slate-400 italic ps-2.5 border-s-2 border-emerald-500 mb-2.5">
                           &quot;{item.quote}&quot;
                         </p>
                       )}
 
                       {/* Small Source Badges (Cross-Platform Evidence) */}
                       {Array.isArray(item.sources) && item.sources.length > 0 && (
-                        <div className="flex items-center gap-1.5 flex-wrap pt-2 border-t border-slate-800/60 dark:border-slate-800/60 light:border-slate-200">
-                          <span className="text-[10px] text-slate-400">
+                        <div className="flex items-center gap-1.5 flex-wrap pt-2 border-t border-slate-200 dark:border-slate-800/60">
+                          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
                             {language === 'he' ? 'ערוצים מאמתים:' : 'Verified across:'}
                           </span>
                           {item.sources.map((src, sIdx) => (
                             <span
                               key={sIdx}
-                              className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-950/40 text-emerald-300 border border-emerald-500/30"
+                              className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-500/30"
                             >
                               {src}
                             </span>
@@ -358,9 +357,9 @@ export function AiInsightsSection({
             {/* Right Column: Points to Improve (נקודות לשיפור) */}
             {(activeTab === 'all' || activeTab === 'vulnerabilities') && (
               <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <AlertTriangle className="w-4 h-4 text-amber-400" />
-                  <h3 className="text-base font-bold text-white dark:text-white light:text-slate-900">
+                <div className="flex items-center justify-center sm:justify-start gap-2 mb-3">
+                  <AlertTriangle className="w-4 h-4 text-amber-500" />
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
                     {t.ai.improveTitle}
                   </h3>
                 </div>
@@ -370,46 +369,46 @@ export function AiInsightsSection({
                     const isCritical = item.severity === 'Critical' || item.severity === 'High';
                     const isModerate = item.severity === 'Moderate' || item.severity === 'Medium';
                     const sevBadge = isCritical
-                      ? 'bg-rose-950/40 text-rose-400 border-rose-500/30'
+                      ? 'bg-rose-50 text-rose-800 border-rose-300 dark:bg-rose-950/50 dark:text-rose-400 dark:border-rose-500/30'
                       : isModerate
-                      ? 'bg-amber-950/40 text-amber-400 border-amber-500/30'
-                      : 'bg-slate-800 text-slate-300 border-slate-700';
+                      ? 'bg-amber-50 text-amber-900 border-amber-300 dark:bg-amber-950/50 dark:text-amber-400 dark:border-amber-500/30'
+                      : 'bg-slate-100 text-slate-700 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700';
 
                     return (
                       <div
                         key={idx}
-                        className="p-4 rounded-xl bg-obsidian-900/60 dark:bg-obsidian-900/60 light:bg-slate-50 border border-amber-500/25 shadow-sm hover:border-amber-500/40 transition-colors"
+                        className="p-4 rounded-xl bg-slate-50 dark:bg-obsidian-900/60 border border-amber-300 dark:border-amber-500/25 shadow-sm hover:border-amber-400 dark:hover:border-amber-500/40 transition-colors"
                       >
                         <div className="flex items-start justify-between gap-2 mb-1.5">
                           <div className="flex items-center gap-2">
-                            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
-                            <span className="font-bold text-sm text-amber-300">
+                            <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" />
+                            <span className="font-bold text-sm text-amber-900 dark:text-amber-300">
                               {item.title}
                             </span>
                           </div>
-                          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${sevBadge} shrink-0`}>
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${sevBadge} shrink-0`}>
                             {item.severity} {t.ai.severity}
                           </span>
                         </div>
-                        <p className="text-xs text-slate-300 dark:text-slate-300 light:text-slate-600 mb-2.5">
+                        <p className="text-xs text-slate-700 dark:text-slate-300 mb-2.5 font-normal">
                           {item.impact}
                         </p>
                         {item.quote && (
-                          <p className="text-[11px] text-slate-400 dark:text-slate-400 light:text-slate-500 italic ps-2.5 border-s-2 border-amber-500/50 mb-2.5">
+                          <p className="text-[11px] text-slate-600 dark:text-slate-400 italic ps-2.5 border-s-2 border-amber-500 mb-2.5">
                             &quot;{item.quote}&quot;
                           </p>
                         )}
 
                         {/* Small Source Badges (Cross-Platform Evidence) */}
                         {Array.isArray(item.sources) && item.sources.length > 0 && (
-                          <div className="flex items-center gap-1.5 flex-wrap pt-2 border-t border-slate-800/60 dark:border-slate-800/60 light:border-slate-200">
-                            <span className="text-[10px] text-slate-400">
+                          <div className="flex items-center gap-1.5 flex-wrap pt-2 border-t border-slate-200 dark:border-slate-800/60">
+                            <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
                               {language === 'he' ? 'ערוצים בהם נצפה:' : 'Observed on:'}
                             </span>
                             {item.sources.map((src, sIdx) => (
                               <span
                                 key={sIdx}
-                                className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-950/40 text-amber-300 border border-amber-500/30"
+                                className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-500/30"
                               >
                                 {src}
                               </span>
@@ -427,10 +426,10 @@ export function AiInsightsSection({
 
         {/* 4. Recurring Guest Feedback Themes */}
         {activeTab === 'all' && (
-          <div className="pt-4 border-t border-slate-800 dark:border-slate-800 light:border-slate-200">
-            <div className="flex items-center gap-2 mb-3">
-              <Layers className="w-4 h-4 text-amber-400" />
-              <h3 className="text-base font-bold text-white dark:text-white light:text-slate-900">
+          <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+            <div className="flex items-center justify-center sm:justify-start gap-2 mb-3">
+              <Layers className="w-4 h-4 text-amber-500" />
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 {t.ai.recurringThemesTitle}
               </h3>
             </div>
@@ -439,25 +438,25 @@ export function AiInsightsSection({
               {analysis.recurringThemes.map((theme, idx) => (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-xl bg-obsidian-900/50 dark:bg-obsidian-900/50 light:bg-slate-50 border border-slate-800 dark:border-slate-800 light:border-slate-200 text-xs"
+                  className="p-3.5 rounded-xl bg-slate-50 dark:bg-obsidian-900/50 border border-slate-200 dark:border-slate-800 text-xs shadow-sm"
                 >
                   <div className="flex items-center justify-between gap-1 mb-1.5">
-                    <span className="font-semibold text-slate-200 dark:text-slate-200 light:text-slate-800 truncate">
+                    <span className="font-bold text-slate-800 dark:text-slate-200 truncate">
                       {theme.theme}
                     </span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-obsidian-800 dark:bg-obsidian-800 light:bg-slate-200 text-amber-400 shrink-0">
+                    <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 dark:bg-obsidian-800 dark:text-amber-400 shrink-0">
                       {theme.frequency}
                     </span>
                   </div>
                   {theme.exampleSnippet && (
-                    <p className="text-[11px] text-slate-400 dark:text-slate-400 light:text-slate-500 italic line-clamp-2">
+                    <p className="text-[11px] text-slate-600 dark:text-slate-400 italic line-clamp-2">
                       &quot;{theme.exampleSnippet}&quot;
                     </p>
                   )}
                   {Array.isArray(theme.sources) && theme.sources.length > 0 && (
                     <div className="mt-2 flex gap-1 flex-wrap">
                       {theme.sources.map((s, i) => (
-                        <span key={i} className="text-[9px] px-1 py-0.2 bg-slate-800 text-slate-400 rounded">
+                        <span key={i} className="text-[9px] font-semibold px-1.5 py-0.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded border border-slate-300 dark:border-slate-700">
                           {s}
                         </span>
                       ))}

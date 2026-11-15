@@ -24,13 +24,17 @@ html.light {
   --accent-emerald: #059669;
 }
 
-/* Light Mode Global Theme Rules */
+/* ==========================================================================
+   Light Mode Design & Contrast Overhauls
+   ========================================================================== */
+
 html.light,
 html.light body {
   background-color: #F8FAFC !important;
   color: #0F172A !important;
 }
 
+/* Base surface mapping in light mode */
 html.light .bg-obsidian-950 {
   background-color: #FFFFFF !important;
 }
@@ -53,25 +57,98 @@ html.light .bg-obsidian-700 {
   background-color: #E2E8F0 !important;
 }
 
+/* Card elevation & borders in light mode */
+html.light .shadow-xl,
+html.light .shadow-2xl,
+html.light .shadow-lg {
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07), 0 2px 6px -1px rgba(15, 23, 42, 0.04) !important;
+}
+
 html.light [class*="border-slate-800"],
 html.light [class*="border-slate-700"] {
   border-color: #E2E8F0 !important;
 }
 
-html.light .text-white,
-html.light .text-slate-100,
-html.light .text-slate-200 {
-  color: #0F172A !important;
+/* Light mode text contrast fixes - high readability */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4 {
+  color: #0F172A;
 }
 
-html.light .text-slate-300 {
+/* Make primary gold/amber text pop with rich high-contrast amber */
+html.light .text-amber-400 {
+  color: #B45309 !important;
+}
+
+html.light .text-amber-300 {
+  color: #92400E !important;
+}
+
+html.light .text-emerald-400 {
+  color: #047857 !important;
+}
+
+html.light .text-emerald-300 {
+  color: #065F46 !important;
+}
+
+html.light .text-rose-400 {
+  color: #BE123C !important;
+}
+
+html.light .text-rose-300 {
+  color: #9F1239 !important;
+}
+
+html.light .text-blue-300 {
+  color: #1D4ED8 !important;
+}
+
+/* Badge background & text harmony in light mode (no more dark muddy blocks) */
+html.light .bg-emerald-950\/40,
+html.light .bg-emerald-950\/50,
+html.light .bg-emerald-950\/20,
+html.light [class*="bg-emerald-950"] {
+  background-color: #ECFDF5 !important;
+  color: #065F46 !important;
+  border-color: #A7F3D0 !important;
+}
+
+html.light .bg-amber-950\/40,
+html.light .bg-amber-950\/50,
+html.light [class*="bg-amber-950"] {
+  background-color: #FFFBEB !important;
+  color: #92400E !important;
+  border-color: #FDE68A !important;
+}
+
+html.light .bg-rose-950\/40,
+html.light .bg-rose-950\/50,
+html.light [class*="bg-rose-950"] {
+  background-color: #FFF1F2 !important;
+  color: #9F1239 !important;
+  border-color: #FECDD3 !important;
+}
+
+html.light .bg-blue-950\/40,
+html.light .bg-blue-950\/50,
+html.light [class*="bg-blue-950"] {
+  background-color: #EFF6FF !important;
+  color: #1E40AF !important;
+  border-color: #BFDBFE !important;
+}
+
+/* Slate badges in light mode (e.g. source tags, fallback badges) */
+html.light .bg-slate-800,
+html.light [class*="bg-slate-800"] {
+  background-color: #F1F5F9 !important;
   color: #334155 !important;
+  border-color: #CBD5E1 !important;
 }
 
-html.light .text-slate-400 {
-  color: #64748B !important;
-}
-
+/* Form controls in light mode */
 html.light input,
 html.light select,
 html.light textarea {
@@ -85,7 +162,16 @@ html.light textarea::placeholder {
   color: #94A3B8 !important;
 }
 
-/* Accessibility Scaling */
+/* Primary CTA amber buttons - keep crisp dark obsidian text */
+.bg-amber-500,
+.bg-amber-500 * {
+  color: #06080B !important;
+}
+
+/* ==========================================================================
+   Accessibility Scaling & Modes
+   ========================================================================== */
+
 html.text-scale-normal {
   font-size: 16px;
 }

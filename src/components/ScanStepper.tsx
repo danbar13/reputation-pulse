@@ -62,9 +62,9 @@ export function ScanStepper({ currentStep, progressPercent }: ScanStepperProps) 
 
   return (
     <div className="w-full max-w-4xl mx-auto my-6">
-      <div className="p-4 sm:p-5 rounded-2xl bg-obsidian-850/90 dark:bg-obsidian-850/90 light:bg-white border border-slate-800 dark:border-slate-800 light:border-slate-200 shadow-lg">
-        {/* Step Progress Line */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 relative">
+      <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-slate-800 shadow-xl">
+        {/* Step Progress Line - Centered & Responsive for Mobile */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
           {STEPS.map((step, idx) => {
             const Icon = step.icon;
             const isFinished = activeIdx > idx;
@@ -74,21 +74,21 @@ export function ScanStepper({ currentStep, progressPercent }: ScanStepperProps) 
             return (
               <div
                 key={step.id}
-                className={`relative flex items-center gap-3 p-3 rounded-xl border transition-all ${
+                className={`relative flex flex-col sm:flex-row items-center text-center sm:text-start gap-2 sm:gap-3 p-3 rounded-xl border transition-all ${
                   isCurrent
-                    ? 'bg-amber-500/10 border-amber-500/50 shadow-sm'
+                    ? 'bg-amber-50 dark:bg-amber-500/10 border-amber-400 dark:border-amber-500/50 shadow-sm'
                     : isFinished
-                    ? 'bg-emerald-950/20 border-emerald-500/30'
-                    : 'bg-obsidian-900/50 dark:bg-obsidian-900/50 light:bg-slate-50 border-slate-800 dark:border-slate-800 light:border-slate-200 opacity-60'
+                    ? 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-500/30'
+                    : 'bg-slate-50 dark:bg-obsidian-900/50 border-slate-200 dark:border-slate-800 opacity-60'
                 }`}
               >
                 <div
-                  className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 font-bold text-xs ${
+                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center shrink-0 font-bold text-xs ${
                     isCurrent
                       ? 'bg-amber-500 text-obsidian-950 ring-2 ring-amber-400/40 animate-pulse'
                       : isFinished
-                      ? 'bg-emerald-500 text-obsidian-950'
-                      : 'bg-slate-800 text-slate-400'
+                      ? 'bg-emerald-500 text-white dark:text-obsidian-950'
+                      : 'bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
                   }`}
                 >
                   {isFinished ? (
@@ -97,19 +97,19 @@ export function ScanStepper({ currentStep, progressPercent }: ScanStepperProps) 
                     <Icon className="w-4 h-4" />
                   )}
                 </div>
-                <div className="min-w-0 flex-1">
+                <div className="min-w-0 flex-1 w-full">
                   <div
-                    className={`text-xs font-semibold truncate ${
+                    className={`text-xs font-bold leading-tight ${
                       isCurrent
-                        ? 'text-amber-400'
+                        ? 'text-amber-800 dark:text-amber-400'
                         : isFinished
-                        ? 'text-emerald-400'
-                        : 'text-slate-400'
+                        ? 'text-emerald-800 dark:text-emerald-400'
+                        : 'text-slate-600 dark:text-slate-400'
                     }`}
                   >
                     {step.label}
                   </div>
-                  <div className="text-[11px] text-slate-400 dark:text-slate-400 light:text-slate-500 truncate">
+                  <div className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
                     {step.description}
                   </div>
                 </div>
