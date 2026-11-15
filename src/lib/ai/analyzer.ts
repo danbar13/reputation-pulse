@@ -412,28 +412,37 @@ Return a STRICT JSON object matching this schema:
 }
 `;
 
-    let response;
-    try {
-      response = await ai.models.generateContent({
-        model: 'gemini-3.5-flash',
-        contents: prompt,
-        config: {
-          responseMimeType: 'application/json',
-        },
-      });
-    } catch {
-      response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: prompt,
-        config: {
-          responseMimeType: 'application/json',
-        },
-      });
+    const candidateModels = [
+      'gemini-3.5-flash-lite',
+      'gemini-3.5-flash',
+      'gemini-3.8-flash',
+      'gemini-flash-latest',
+    ];
+
+    let response: any = null;
+    let modelNameUsed = 'Google Gemini 3.5 Flash';
+
+    for (const m of candidateModels) {
+      try {
+        response = await ai.models.generateContent({
+          model: m,
+          contents: prompt,
+          config: {
+            responseMimeType: 'application/json',
+          },
+        });
+        if (response?.text) {
+          modelNameUsed = `Google ${m.replace('gemini-', 'Gemini ').replace('-lite', ' Lite')}`;
+          break;
+        }
+      } catch (mErr: any) {
+        console.warn(`[Gemini AI] Attempt with ${m} failed:`, mErr?.message || mErr);
+      }
     }
 
-    const text = response.text;
+    const text = response?.text;
     if (!text) {
-      throw new Error('Empty response from Gemini API');
+      throw new Error('Empty response from all Gemini candidate models');
     }
 
     const parsed = JSON.parse(text);
@@ -453,7 +462,7 @@ Return a STRICT JSON object matching this schema:
       actionableRecommendations: Array.isArray(parsed.actionableRecommendations) ? parsed.actionableRecommendations : [],
       generatedAt: new Date().toISOString(),
       isLiveAi: true,
-      modelUsed: 'Google Gemini 3.5 Flash',
+      modelUsed: modelNameUsed,
     };
   } catch (err: any) {
     console.warn('[Gemini AI] Live generation failed, utilizing resilient fallback synthesis:', err?.message || err);
